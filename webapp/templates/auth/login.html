@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% block head %}
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% block styles %}
+    {{ super() }}
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/login.css') }}">
+    {% endblock %}
+
+
+{% endblock %}
+{% block title %}EarnCoins - Login{% endblock %}
+
+
+{% block login %}
+
+    {% include 'navbar.html' %}
+    {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning " style="margin: 15px 0; background-color: transparent; color: white">
+            <button type="button" class="close" data-dismiss="alert" style="color: white">&times;</button>
+            {{ message }}
+        </div>
+    {% endfor %}
+
+
+    <section class="ftco-section">
+        <div class="container">
+
+        <div class="row justify-content-center">
+            <div class=" col-md-10 col-lg-6" style="background-color: #364e68; border-radius: 10px">
+                <div class="login-wrap p-0" style="justify-content: center;display: grid">
+{#                				<div class="login100-form-title" style="background-image: url(images/bg-01.jpg);">#}
+                    <img src="{{ url_for('static',filename='img/banner-logo.png') }}" alt="banner-logo">
+                    <form method="POST" action="{{ url_for('.login')}}" class="signin-form">
+                        {{ form.hidden_tag() }}
+                        <div class="form-group">
+                            {{ form.email.label }}
+                            {{ form.email(class="form-control", type="email", placeholder="Enter Email") }}
+                            {% for error in form.email.errors %}
+                            <span style="color: #ffffff">{{ error }}</span>
+                            {% endfor %}
+
+                        </div>
+                        <div class="form-group">
+                            {{ form.password.label }}
+                            {{ form.password(class="form-control", type="password", placeholder="Enter Password", id="password-field") }}
+                            {% for error in form.email.errors %}
+                            <span style="color: #ffffff">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="form-control btn btn-primary submit px-3">Log In</button>
+                        </div>
+                        <div class="form-group d-md-flex">
+                            <div class="w-50">
+                                {{ form.remember_me }} {{ form.remember_me.label }}
+                            </div>
+                            <div class="w-50 text-md-right">
+                                <a href="{{ url_for('auth.reset_password_request') }}" style="color: #fa1e0e">Forgot Password</a>
+                            </div>
+
+                        </div>
+                    </form>
+                    <h5 class="mb-4 text-center"><a href="{{ url_for('auth.register') }}" style="color: #ffffff; size: 50px">Don't Have an account?</a></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+
+{#    <div class="limiter">#}
+{#		<div class="container-login100">#}
+{#			<div class="wrap-login100">#}
+
+{#					<span class="login100-form-title-1">#}
+{#						Sign In#}
+{#					</span>#}
+{#				</div>#}
+{##}
+{#				<form class="login100-form validate-form">#}
+{#					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">#}
+{#						<span class="label-input100">Username</span>#}
+{#						<input class="input100" type="text" name="username" placeholder="Enter username">#}
+{#						<span class="focus-input100"></span>#}
+{#					</div>#}
+{##}
+{#					<div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">#}
+{#						<span class="label-input100">Password</span>#}
+{#						<input class="input100" type="password" name="pass" placeholder="Enter password">#}
+{#						<span class="focus-input100"></span>#}
+{#					</div>#}
+{##}
+{#					<div class="flex-sb-m w-full p-b-30">#}
+{#						<div class="contact100-form-checkbox">#}
+{#							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">#}
+{#							<label class="label-checkbox100" for="ckb1">#}
+{#								Remember me#}
+{#							</label>#}
+{#						</div>#}
+{##}
+{#						<div>#}
+{#							<a href="#" class="txt1">#}
+{#								Forgot Password?#}
+{#							</a>#}
+{#						</div>#}
+{#					</div>#}
+{##}
+{#					<div class="container-login100-form-btn">#}
+{#						<button class="login100-form-btn">#}
+{#							Login#}
+{#						</button>#}
+{#					</div>#}
+{#				</form>#}
+{#			</div>#}
+{#		</div>#}
+{#	</div>#}
+
+
+{% endblock %}
+
+

@@ -1,0 +1,12 @@
+Dear {{ user.username }},
+
+You have successfully made a deposit you now have ${{ current_user.account_balance }} to your Earncoins account.
+
+Your transaction is being confirmed...
+View transaction history for details click the link below
+
+
+
+Sincerely,
+The Earncoins Team
+Note: replies to this email address are not monitored.

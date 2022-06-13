@@ -1,0 +1,907 @@
+{% extends "base.html" %}
+{% block title %}EarnCoins{% endblock %}
+{% include 'navbar.html' %}
+
+{% block body %}
+{#<div class="row row-lg-4">#}
+{#    <div class="col">#}
+{#        {% block message %}#}
+{#            {% include 'messages.html' %}#}
+{#        {% endblock %}#}
+{#    </div>#}
+{#</div>#}
+{% endblock %}
+
+
+
+{% block page_content %}
+
+{% for message in get_flashed_messages() %}
+<div class="alert alert-warning text-center font-roboto text-uppercase" style="font-size:larger ;margin: 40px 10px; background-color: whitesmoke; color: black">
+    <button type="button" class="close" data-dismiss="alert" style="color: black">&times;</button>
+    {{ message }}
+</div>
+{% endfor %}
+<!--  ======================= Start Banner Area =======================  -->
+<section class="site-banner" style="height: 500px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-6 site-title">
+                <img src="{{ url_for('static',filename='img/banner-logo.png') }}" alt="banner-logo">
+                    <p class="title-text">Join us today for a stable income - quickly and reliably with the incredible power of ARTIFICIAL INTELLIGENCE</p>
+                <div class="site-buttons">
+                    <div class="d-flex flex-row flex-wrap">
+                        {% if current_user.is_authenticated %}
+                            <a href="{{ url_for('auth.logout') }}"><button type="button" class="btn button primary-button text-uppercase">Logout</button></a>
+                        {% else %}
+
+                            <a href="{{ url_for('auth.register') }}"><button type="button" class="btn button secondary-button mr-4 text-uppercase" >Open An Account</button></a>
+                            <a href="{{ url_for('auth.login') }}"><button type="button" class="btn button primary-button text-uppercase">Sign in</button></a>
+
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 banner-image">
+                <img src="{{ url_for('static',filename='img/banner-gif-spin.gif') }}" alt="banner-gif">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mission">
+    <h2 class="text-uppercase pt-3 pb-3 text-center">
+        <span>ai core</span>
+    </h2>
+    <div class="ai-core banner-gif pb-3 mb-4" style="">
+        <img src="{{ url_for('static', filename='img/banner-img.gif') }}" alt="img">
+    </div>
+</section>
+
+<section class="counter">
+    <div class="wrapper">
+        <div class="contain">
+            <i class="fas fa-users ic"></i>
+            <span class="num" data-val="2000k+">000<span>K+</span></span>
+            <span class="text">Total Members</span>
+        </div>
+        <div class="contain">
+            <i class="fas fa-file-invoice ic"></i>
+            <span class="num" data-val="250">000<span>+</span></span>
+            <span class="text">Daily Withdrawals</span>
+        </div>
+        <div class="contain">
+            <i class="fas fa-money-check ic"></i>
+            <span class="num">$50k +</span>
+            <span class="text">Total Deposits</span>
+        </div>
+        <div class="contain">
+            <i class="fas fa-money-bill ic"></i>
+            <span class="num">$200k+</span>
+            <span class="text">Total Payout</span>
+        </div>
+    </div>
+</section>
+<!--  ======================= End Banner Area =======================  -->
+
+<!--  ======================= Start pricing Area =======================  -->
+<section id="pricing" class="pricing-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center services-title">
+                <h1 class="text-uppercase title-text">Our Plans</h1>
+                <span class="para">
+                   Choose your preferred plan and Calculate your profit gain
+                </span>
+            </div>
+        </div>
+        <div class="container services-list">
+            <div class="pricing-card">
+                <div class="services">
+                    <div class="card__pricing">
+                        <p class="card__pricing-symbol"><small>Min:</small> $100</p>
+                        <p class="card__pricing-month"><small>Max:</small> $499</p>
+                    </div>
+                    <div class="text-center my-3">
+                        <p class="plan-title">BEGINNER PLAN</p>
+                    </div>
+
+                    <div class="card-body text-center">
+                        <hr>
+                        <h1 class="card-title text-uppercase">5%</h1>
+                        <hr>
+                        <p class="card-text">5%-10% PROFIT DAILY</p>
+                        <p class="card-text">Duration: (4 Days)</p>
+                        <p></p>
+                        <button type="button" class="btn button secondary-button text-uppercase" style="border: 3px solid #132238"><a href="{{ url_for('main.funding', username=current_user.username) }}">Invest!</a></button>
+                    </div>
+                </div>
+                <div class="services">
+                    <div class="card__pricing">
+                        <p class="card__pricing-symbol"><small>Min:</small> $500</p>
+                        <p class="card__pricing-month"><small>Max:</small> $1999</p>
+                    </div>
+                    <div class="text-center my-3">
+                        <p class="plan-title">INTERMEDIATE PLAN</p>
+                    </div>
+                    <p></p>
+                    <div class="card-body text-center">
+                        <hr>
+                        <h1 class="card-title text-uppercase">10%</h1>
+                        <hr>
+                        <p class="card-text">10%-15% PROFIT DAILY</p>
+                        <p class="card-text">Duration: (4 Days)</p>
+                        <p></p>
+                        <button type="button" class="btn button secondary-button text-uppercase" style="border: 3px solid #132238"><a href="{{ url_for('main.funding', username=current_user.username) }}">Invest!</a></button>
+                    </div>
+                </div>
+                <div class="services">
+                    <div class="card__pricing">
+                        <p class="card__pricing-symbol"><small>Min:</small> $2000</p>
+                        <p class="card__pricing-month"><small>Max:</small> $4999</p>
+                    </div>
+                    <div class="text-center my-3">
+                        <p class="plan-title">ADVANCED PLAN</p>
+                    </div>
+
+                    <div class="card-body text-center">
+                        <hr>
+                        <h1 class="card-title text-uppercase">15%</h1>
+                        <hr>
+                        <p class="card-text">15%-20% PROFIT DAILY</p>
+                        <p class="card-text">Duration: (4 Days)</p>
+                        <p></p>
+                        <button type="button" class="btn button secondary-button text-uppercase" style="border: 3px solid #132238"><a href="{{ url_for('main.funding', username=current_user.username) }}">Invest!</a></button>
+                    </div>
+                </div>
+            </div>
+            <div class="cal">
+                <div class="services">
+                    <div class="card__pricing">
+                        <p class="card__pricing-symbol"><small>Min:</small> $5000</p>
+                        <p class="card__pricing-month"><small>Max:</small> Above</p>
+                    </div>
+                    <div class="text-center my-3">
+                        <p class="plan-title">ENTERPRISE PLAN</p>
+                    </div>
+
+                    <div class="card-body text-center">
+                        <hr>
+                        <h1 class="card-title text-uppercase">20%</h1>
+                        <hr>
+                        <p class="card-text">20%-45% PROFIT DAILY</p>
+                        <p class="card-text">Duration: (4 Days)</p>
+                        <p></p>
+                        <button type="button" class="btn button secondary-button text-uppercase" style="border: 3px solid #132238"><a href="{{ url_for('main.funding', username=current_user.username) }}">Invest!</a></button>
+                    </div>
+                </div>
+                <div class="services">
+                    <div class="text-center mt-3">
+                        <p class="plan-title">CALCULATE YOUR PLAN</p>
+                    </div>
+                    <div class="card-body text-center">
+                        <hr>
+{#                        calculator form#}
+                        <form id="login" method="POST" action="{{ url_for('earncoins.home') }}">
+                            {{ form.hidden_tag() }}
+                            <div class="form-group">
+                                {{ form.plan.label }}
+                                {{ form.plan(class="form-control", type="select", placeholder="Select a plan") }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form.amount.label }}
+                                {{ form.amount(class="form-control", type="numbers", placeholder="Amount") }}
+                                {% for error in form.amount.errors %}
+                                <span style="color: #ffffff">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+
+                            {% for field, errors in form.errors.items() %}
+                                <small style="margin: 12px 12px">
+                                    {{ ', '.join(errors) }}
+                                </small>
+                            {% endfor %}
+                            <div class="form-group">
+                                <button type="submit" class="btn button primary-button text-uppercase" style="border: 3px solid #132238">Profit</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+<!--  ======================= End pricing Area =======================  -->
+
+
+{#certificate section#}
+<section id="about-us" class="certificate" style="">
+<!-- A Lightbox is basically a slider (carousel) inside of a modal.
+
+  Todos: fix active class (when you click on a photo, carousel in modal reverts to first slide)
+ *solution: added data-slide-to and data-target to imgs
+-->
+    <div class="container-fluid">
+        <h2 class="text-uppercase pt-5 pb-5 text-center">
+            <span>About Us</span>
+        </h2>
+        <div class="about-section">
+            <div class="seals about-us">
+                <div id="seal" class=" ">
+                    <img src="{{ url_for('static', filename='img/speedometer.png') }}"  alt="img">
+                    <span class="white text-uppercase">speed</span>
+                </div>
+                <div id="seal" class=" ">
+                    <img src="{{ url_for('static', filename='img/shield.png') }}" alt="img">
+                    <span class="white text-uppercase ">security</span>
+                </div>
+
+                <div id="seal" class=" ">
+                    <img src="{{ url_for('static', filename='img/ai.png') }}"  alt="img">
+                    <span class="white text-uppercase">Risk free</span>
+                </div>
+                <div id="seal" class=" ">
+                    <img src="{{ url_for('static', filename='img/seal.png') }}" style="height: 30px" alt="img">
+                    <span class="white text-uppercase">certified</span>
+
+                </div>
+
+            </div>
+
+            <div class="about-us world-gif" style="">
+
+                <img src="{{ url_for('static', filename='img/cert-world.gif') }}" alt="img">
+
+            </div>
+            <div class="about-us cert" >
+                <div class="row d-flex flex-wrap content-center" data-toggle="modal" data-target="#lightbox">
+                    <img class="workcert-img row d-flex flex-wrap content-center" src="{{ url_for('static', filename='img/workcert.jpeg') }}" data-target="#indicators" data-slide-to="0" alt="cert" />
+
+                </div>
+
+            </div>
+                <!-- Modal -->
+                <div class="modal fade" id="lightbox" role="dialog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <button type="button" class="close text-right p-2" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                <div id="indicators" class="carousel slide" data-interval="false">
+            <ol class="carousel-indicators">
+                <li data-target="#indicators" data-slide-to="0" class="active"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active ">
+                    <img class="d-block w-100 " src="{{ url_for('static', filename='img/workcert1.jpeg') }}" alt="First slide">
+                </div>
+            </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        <div class="about-details ">
+            <h6 class=" mt-2 mb-2 pt-2 pb-2" style="color: whitesmoke;">
+                A Quote is the last price at which an asset (Cryptocurrency) is traded and
+                here at EARNCOINS deliver that with the heavy power of AI technology.
+            </h6>
+
+            <div class="point">
+                <p>Security</p>
+            </div>
+            <div class="point-explain">
+                <p class="white">
+                    Our AI trading bots uses the highest levels of internet security,
+                    and it is secured by 256bits SSL security encription
+                </p>
+            </div>
+            <div class="point">
+                <p>Speed</p>
+            </div>
+            <div class="point-explain">
+                <p class="white">
+                    The better the transaction speed, the better the customer satisfaction with system availability and faster processing.
+                </p>
+            </div>
+
+            <div class="point">
+                <p>Risk free</p>
+            </div>
+            <div class="point-explain">
+                <p class="white">
+                    The advanced Aritficaial Intelligence Trading bot delivers with precision of about 1-5% gains guaranteed on each trade.
+                </p>
+            </div>
+
+            <div class="point">
+                <p>Sectigo certified</p>
+            </div>
+            <div class="point-explain">
+                <p class="white">
+                    Sectigo roots are trusted by all current browsers, including Internet Explorer 5.0.1 and above, Google Chrome (all versions), Apple Safari 1.2 and
+                    above, Microsoft Edge (all versions), Opera 6.1. and many others.
+
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- testimony section -->
+<section class="reviews" id="Testimonies" style="background-color: transparent">
+  <div class="container text-center ">
+      <div class="col-12 testimonial-header">
+          <div class="review-title">
+              <h2 class="text-uppercase pt-5 mt-2"><span>transactions update</span></h2>
+          </div>
+      </div>
+  </div>
+  <div class="container">
+    <div id="slider" class="owl-carousel owl-theme" style="">
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[0] }}<span> {{ country[0] }}</span> {{ action[0] }}<span style="color:#fa1e0e"> ${{ amount[0] }} of {{ coin[0] }} </span> {{ time[0] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[1] }}<span> {{ country[1] }}</span> {{ action[1] }}<span style="color:#fa1e0e"> ${{ amount[1] }} of {{ coin[1] }} </span> {{ time[1] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[2] }}<span> {{ country[2] }}</span> {{ action[1] }}<span style="color:#fa1e0e"> ${{ amount[2] }} of {{ coin[2] }} </span> {{ time[2] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[3] }}<span> {{ country[3] }}</span> {{ action[0] }}<span style="color:#fa1e0e"> ${{ amount[2] }} of {{ coin[2] }} </span> {{ time[2] }} minutes ago
+                </p>
+            </div>
+        </div>
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[4] }}<span> {{ country[4] }}</span> {{ action[0] }}<span style="color:#fa1e0e"> ${{ amount[3] }} of {{ coin[0] }} </span> {{ time[3] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[5] }}<span> {{ country[5] }}</span> {{ action[1] }}<span style="color:#fa1e0e"> ${{ amount[4] }} of {{ coin[1] }} </span> {{ time[4] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[6] }}<span> {{ country[6] }}</span> {{ action[0] }}<span style="color:#fa1e0e"> ${{ amount[5] }} of {{ coin[2] }} </span> {{ time[5] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[7] }}<span> {{ country[7] }}</span> {{ action[1] }}<span style="color:#fa1e0e"> ${{ amount[6] }} of {{ coin[0] }} </span> {{ time[6] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[8] }}<span> {{ country[8] }}</span> {{ action[0] }}<span style="color:#fa1e0e"> ${{ amount[7] }} of {{ coin[1] }} </span> {{ time[7] }} minutes ago
+                </p>
+            </div>
+        </div>
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[9] }}<span> {{ country[9] }}</span> {{ action[1] }}<span style="color:#fa1e0e"> ${{ amount[8] }} of {{ coin[2] }} </span> {{ time[8] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[10] }}<span> {{ country[10] }}</span> {{ action[0] }}<span style="color:#fa1e0e"> ${{ amount[9] }} of {{ coin[0] }} </span> {{ time[9] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[11] }}<span> {{ country[11] }}</span> {{ action[1] }}<span style="color:#fa1e0e"> ${{ amount[10] }} of {{ coin[1] }} </span> {{ time[10] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[12] }}<span> {{ country[12] }}</span> {{ action[0] }}<span style="color:#fa1e0e"> ${{ amount[11] }} of {{ coin[2] }} </span> {{ time[11] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[13] }}<span> {{ country[13] }}</span> {{ action[1] }}<span style="color:#fa1e0e"> ${{ amount[12] }} of {{ coin[0] }} </span> {{ time[12] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[14] }}<span> {{ country[14] }}</span> {{ action[0] }}<span style="color:#fa1e0e"> ${{ amount[13] }} of {{ coin[1] }} </span> {{ time[13] }} minutes ago
+                </p>
+            </div>
+        </div>
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[15] }}<span> {{ country[15] }}</span> {{ action[1] }}<span style="color:#fa1e0e"> ${{ amount[14] }} of {{ coin[2] }} </span> {{ time[14] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[16] }}<span> {{ country[16] }}</span> {{ action[0] }}<span style="color:#fa1e0e"> ${{ amount[15] }} of {{ coin[0] }} </span> {{ time[15] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[17] }}<span> {{ country[17] }}</span> {{ action[1] }}<span style="color:#fa1e0e"> ${{ amount[16] }} of {{ coin[1] }} </span> {{ time[16] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[18] }}<span> {{ country[18] }}</span> {{ action[0] }}<span style="color:#fa1e0e"> ${{ amount[17] }} of {{ coin[2] }} </span> {{ time[17] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[19] }}<span> {{ country[19] }}</span> {{ action[1] }}<span style="color:#fa1e0e"> ${{ amount[18] }} of {{ coin[0] }} </span> {{ time[18] }} minutes ago
+                </p>
+            </div>
+        </div>
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[20] }}<span> {{ country[20] }}</span> {{ action[0] }}<span style="color:#fa1e0e"> ${{ amount[19] }} of {{ coin[1] }} </span> {{ time[19] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[21] }}<span> {{ country[21] }}</span> {{ action[1] }}<span style="color:#fa1e0e"> ${{ amount[20] }} of {{ coin[0] }} </span> {{ time[0] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[22] }}<span> {{ country[22] }}</span> {{ action[0] }}<span style="color:#fa1e0e"> ${{ amount[21] }} of {{ coin[0] }} </span> {{ time[0] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[23] }}<span> {{ country[23] }}</span> {{ action[1] }}<span style="color:#fa1e0e"> ${{ amount[22] }} of {{ coin[1] }} </span> {{ time[1] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[24] }}<span> {{ country[24] }}</span> {{ action[1] }}<span style="color:#fa1e0e"> ${{ amount[23] }} of {{ coin[2] }} </span> {{ time[2] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[25] }}<span> {{ country[25] }}</span> {{ action[0] }}<span style="color:#fa1e0e"> ${{ amount[24] }} of {{ coin[2] }} </span> {{ time[2] }} minutes ago
+                </p>
+            </div>
+        </div>
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[26] }}<span> {{ country[26] }}</span> {{ action[0] }}<span style="color:#fa1e0e"> ${{ amount[25] }} of {{ coin[0] }} </span> {{ time[3] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[27] }}<span> {{ country[27] }}</span> {{ action[1] }}<span style="color:#fa1e0e"> ${{ amount[26] }} of {{ coin[1] }} </span> {{ time[4] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[28] }}<span> {{ country[28] }}</span> {{ action[0] }}<span style="color:#fa1e0e"> ${{ amount[27] }} of {{ coin[2] }} </span> {{ time[5] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[29] }}<span> {{ country[29] }}</span> {{ action[1] }}<span style="color:#fa1e0e"> ${{ amount[28] }} of {{ coin[0] }} </span> {{ time[6] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[30] }}<span> {{ country[30] }}</span> {{ action[0] }}<span style="color:#fa1e0e"> ${{ amount[29] }} of {{ coin[1] }} </span> {{ time[7] }} minutes ago
+                </p>
+            </div>
+        </div>
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[31] }}<span> {{ country[31] }}</span> {{ action[1] }}<span style="color:#fa1e0e"> ${{ amount[30] }} of {{ coin[2] }} </span> {{ time[8] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[32] }}<span> {{ country[32] }}</span> {{ action[0] }}<span style="color:#fa1e0e"> ${{ amount[31] }} of {{ coin[0] }} </span> {{ time[9] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[33] }}<span> {{ country[33] }}</span> {{ action[0] }}<span style="color:#fa1e0e"> ${{ amount[32] }} of {{ coin[0] }} </span> {{ time[10] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[34] }}<span> {{ country[34] }}</span> {{ action[1] }}<span style="color:#fa1e0e"> ${{ amount[33] }} of {{ coin[1] }} </span> {{ time[11] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[35] }}<span> {{ country[35] }}</span> {{ action[1] }}<span style="color:#fa1e0e"> ${{ amount[34] }} of {{ coin[2] }} </span> {{ time[12] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[36] }}<span> {{ country[36] }}</span> {{ action[0] }}<span style="color:#fa1e0e"> ${{ amount[35] }} of {{ coin[2] }} </span> {{ time[12] }} minutes ago
+                </p>
+            </div>
+        </div>
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[37] }}<span> {{ country[37] }}</span> {{ action[0] }}<span style="color:#fa1e0e"> ${{ amount[37] }} of {{ coin[0] }} </span> {{ time[13] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[38] }}<span> {{ country[38] }}</span> {{ action[1] }}<span style="color:#fa1e0e"> ${{ amount[38] }} of {{ coin[1] }} </span> {{ time[14] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[39] }}<span> {{ country[39] }}</span> {{ action[0] }}<span style="color:#fa1e0e"> ${{ amount[39] }} of {{ coin[2] }} </span> {{ time[15] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[40] }}<span> {{ country[40] }}</span> {{ action[1] }}<span style="color:#fa1e0e"> ${{ amount[40] }} of {{ coin[0] }} </span> {{ time[16] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[41] }}<span> {{ country[41] }}</span> {{ action[0] }}<span style="color:#fa1e0e"> ${{ amount[41] }} of {{ coin[1] }} </span> {{ time[17] }} minutes ago
+                </p>
+            </div>
+        </div>
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[42] }}<span> {{ country[42] }}</span> {{ action[1] }}<span style="color:#fa1e0e"> ${{ amount[42] }} of {{ coin[2] }} </span> {{ time[18] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[43] }}<span> {{ country[43] }}</span> {{ action[0] }}<span style="color:#fa1e0e"> ${{ amount[43] }} of {{ coin[0] }} </span> {{ time[19] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[44] }}<span> {{ country[44] }}</span> {{ action[0] }}<span style="color:#fa1e0e"> ${{ amount[44] }} of {{ coin[0] }} </span> {{ time[0] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[45] }}<span> {{ country[1] }}</span> {{ action[1] }}<span style="color:#fa1e0e"> ${{ amount[45] }} of {{ coin[1] }} </span> {{ time[1] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[46] }}<span> {{ country[46] }}</span> {{ action[1] }}<span style="color:#fa1e0e"> ${{ amount[46] }} of {{ coin[2] }} </span> {{ time[2] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[47] }}<span> {{ country[47] }}</span> {{ action[0] }}<span style="color:#fa1e0e"> ${{ amount[47] }} of {{ coin[2] }} </span> {{ time[2] }} minutes ago
+                </p>
+            </div>
+        </div>
+        <div class="content-area">
+            <div class="content text-center">
+                <p class="description">
+                    {{ names[48] }}<span> {{ country[48] }}</span> {{ action[0] }}<span style="color:#fa1e0e"> ${{ amount[48] }} of {{ coin[0] }} </span> {{ time[3] }} minutes ago
+                </p>
+            </div>
+        </div>
+
+
+
+    </div>
+  </div>
+</section>
+<!-- end testimony section -->
+
+{#-------logos ssection-------#}
+<section class="logos">
+    <div class="container-fluid">
+        <div class="logos-row">
+            <div class="single-brand">
+                <img src="{{ url_for('static', filename='img/payment_4.png') }}" alt="Brand-1 ">
+            </div>
+            <div class="single-brand">
+                <img src="{{ url_for('static', filename='img/payment_5.png') }}" alt="Brand-1 ">
+            </div>
+            <div class="single-brand">
+                <img src="{{ url_for('static', filename='img/ethereum-logo.png') }}" alt="Brand-1 ">
+            </div>
+            <div class="single-brand">
+                <img src="{{ url_for('static', filename='img/OKEX.png') }}" alt="Brand-1 ">
+            </div>
+            <div class="single-brand">
+                <img src="{{ url_for('static', filename='img/metamask-1.png') }}" alt="Brand-1 ">
+            </div>
+            <div class="single-brand">
+                <img src="{{ url_for('static', filename='img/alliance-logo.png') }}" alt="Brand-1 ">
+            </div>
+            <div class="single-brand">
+                <img src="{{ url_for('static', filename='img/litecoin-logo.png') }}" alt="Brand-1 ">
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+</section>
+{#-------end logos section-------#}
+
+{#-------live charts section-------#}
+ <section class="live-charts">
+    <div class="container-fluid ml-1 mr-1">
+        <h2 class="text-uppercase my-2 pt-0 pb-3 text-center">
+            <span>Live charts</span>
+        </h2>
+       <iframe src="https://ng.widgets.investing.com/crypto-currency-rates?theme=darkTheme&hideTitle=true&roundedCorners=true&cols=bid,last,prev,high,low,changePerc,time&pairs=945629,997650,1001803,1010773,1061129,1136842,49800,1057389,1061130,1118065,1064587,1117893,1117891,1171230,1056828,1055298,1072079,1185358,1142432,1174711,1174943" width="100%" height="600px" frameborder="0" allowtransparency="true" marginwidth="0" marginheight="0"></iframe>
+    </div>
+ </section>
+{#-------end live charts section-------#}
+
+{#-------start faqs section-------#}
+<section class="accordion container">
+    <div class="accordion__container">
+        <div class="accordion__item">
+            <header class="accordion__header">
+                <i class='bx bx-plus accordion__icon'></i>
+                <h3 class="accordion__title">How can I invest with EarnCoins?</h3>
+            </header>
+
+            <div class="accordion__content">
+                <p class="accordion__description">
+                    It's super easy, All you've got to do is <a href="{{ url_for('auth.register') }}">Sign Up</a> once you're done, you pick a plan suitable for you/organization, calculate your profit and then proceed to the deposit page and make payment.
+                </p>
+            </div>
+        </div>
+
+        <div class="accordion__item">
+            <header class="accordion__header">
+                <i class='bx bx-plus accordion__icon'></i>
+                <h3 class="accordion__title">WHAT CRYTOCURRENCY DO YOU ACCEPT ?</h3>
+            </header>
+
+            <div class="accordion__content">
+                <p class="accordion__description">
+                     We currently accept Bitcoin (BTC) and Ethereum (ETH) and Litecoin (LTC). Soon more cryptocurrencies will be accepted.
+                </p>
+            </div>
+        </div>
+
+        <div class="accordion__item">
+            <header class="accordion__header">
+                <i class='bx bx-plus accordion__icon'></i>
+                <h3 class="accordion__title">How can I withdraw funds?</h3>
+            </header>
+
+            <div class="accordion__content">
+                <p class="accordion__description">
+                    On Your dashboard, click on withdraw then fill in the form provided with your wallet
+    address, confirm the address and proceed with the withdrawal.
+                </p>
+            </div>
+        </div>
+
+        <div class="accordion__item">
+            <header class="accordion__header">
+                <i class='bx bx-plus accordion__icon'></i>
+                <h3 class="accordion__title">What happens if i forget my password?</h3>
+            </header>
+
+            <div class="accordion__content">
+                <p class="accordion__description">
+                    Click the <a href="{{ url_for('auth.reset_password_request') }}">forgot password</a> link, use the email you used in creating your account and a reset link will be sent to you.
+                </p>
+            </div>
+        </div>
+
+        <div class="accordion__item">
+            <header class="accordion__header">
+                <i class='bx bx-plus accordion__icon'></i>
+                <h3 class="accordion__title">HOW DO I MAKE A DEPOSIT ?</h3>
+            </header>
+
+            <div class="accordion__content">
+                <p class="accordion__description">
+                   After sign up, pick a plan and proceed to make payment into the unique address
+    generated for your payment from your crypto wallet.
+                </p>
+            </div>
+        </div>
+        <div class="satisfy">
+            <p class="edge">Not Satisfied? <a href="#{{ url_for('earncoins.faqs') }}">more...</a></p>
+        </div>
+    </div>
+</section>
+{#-------end faqs section-------#}
+
+
+{#we accept and footer section======#}
+<footer class="footer-bg" style="background-color: #000000; color: #dddddd !important;">
+    <div class="container">
+    <div class="row-items">
+        <div class="columns ec-column">
+            <!--EC ICON-->
+
+            <a href="#"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="earncoins logo" style="height: 70px; width: 190px; margin: 2px;"><small class="" style="color: black;">AI Profitability ReImagined.</small></a><br>
+
+        </div>
+        <div class="columns">
+            <h5 style="margin: 15px 0;">QUICK LINKS</h5>
+            <ul class="list-group" style="list-style: none; margin-top: 20px">
+                <li class="p-1"><a href="{{ url_for('earncoins.home') }}" style="text-decoration: none;">HOME</a></li>
+                <li class="p-1"><a href="{{ url_for('earncoins.faqs') }}" style="text-decoration: none;">FAQs</a></li>
+                <li class="p-1"><a href="{{ url_for('earncoins.privacy') }}" style="text-decoration: none;">PRIVACY</a></li>
+                <li class="p-1"><a href="{{ url_for('earncoins.terms') }}" style="text-decoration: none;">TERMS</a></li>
+            </ul>
+        </div>
+        <div class="columns">
+            <h5 style="margin-top: 20px">AVAILABLE</h5>
+            <div class="postal">
+                <h6 class="my-1">24/7 Support</h6>
+                <br>
+                <p style="font-size: small;">20 Balcombe Street, Marylebone, London, United Kingdom, NW1 6ND</p>
+            </div>
+
+            <div class="offical">
+                <h6></h6>
+                <p style="font-size: small;"></p>
+            </div>
+
+            <div class="mail">
+                <h6></h6>
+                <p style="font-size: small;"></p>
+            </div>
+        </div>
+
+
+    </div>
+    <hr style="height: 2px;">
+    <div class="cotesy text-center">
+        <small class="" style="padding-bottom: 9px;"> &copy; EARNCOINS | All Rights Reserved.</small>
+    </div>
+    </div>
+</footer>
+
+{#  end we accept and footer section======#}
+
+{% endblock %}

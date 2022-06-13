@@ -1,0 +1,97 @@
+{% extends "dash.html" %}
+{% block title %}Settings{% endblock %}
+{% block page_content %}
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+{% for message in get_flashed_messages() %}
+<div class="alert alert-warning " style="margin: 15px 0; background-color: transparent; color: white">
+    <button type="button" class="close" data-dismiss="alert" style="color: white">&times;</button>
+    {{ message }}
+</div>
+{% endfor %}
+
+<div class="page-header">
+    <h3 class="text-center text-uppercase mb-2" style="color: white">Edit Your Profile</h3>
+</div>
+<div class="container">
+    <div class="row">
+        {% if username == current_user.username %}
+        <div class="col-10">
+            <form id="login" method="POST" action="{{ url_for('main.edit_profile', username=current_user.username) }}" enctype="multipart/form-data" class="signin-form">
+                <div class="form-group">
+                    {{ form.profile_pic.label }}
+                    {{ form.profile_pic(class="form-control", type="file", placeholder="Upload your profile picture", value=user.profile_pic) }}
+                    {% for error in form.profile_pic.errors %}
+                    <span style="color: #ffffff">{{ error }}</span>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.email.label }}
+                    {{ form.email(class="form-control", type="email", placeholder="Enter Email", value=user.email) }}
+                    {% for error in form.email.errors %}
+                    <span style="color: #ffffff">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    {{ form.username.label }}
+                    {{ form.username(class="form-control", type="username", placeholder="Enter Username", value=user.username) }}
+                    {% for error in form.username.errors %}
+                    <span style="color: #ffffff">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    {{ form.phone.label }}
+                    {{ form.phone(class="form-control", type="tel", placeholder="Enter Phone", value=user.phone) }}
+                    {% for error in form.phone.errors %}
+                    <span style="color: #ffffff">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    {{ form.country.label }}
+                    {{ form.country(class="form-control", type="country", placeholder="Enter Country", value=user.country) }}
+                    {% for error in form.country.errors %}
+                    <span style="color: #ffffff">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    {{ form.wallet_address.label }}
+                    {{ form.wallet_address(class="form-control", type="address", placeholder="Enter Wallet", value=user.wallet_address) }}
+                    {% for error in form.wallet_address.errors %}
+                    <span style="color: #ffffff">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    {{ form.coin.label }}
+                    {{ form.coin(class="form-control", type="coin", placeholder="Select coin", value=user.coin) }}
+                    {% for error in form.coin.errors %}
+                    <span style="color: #ffffff">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="form-control btn btn-primary submit px-3">Update profile</button>
+                </div>
+                <hr>
+{#                    <div class="row mb-3">#}
+{#                        <label for="password" class="col-sm-2 col-form-label">Password</label>#}
+{#                        <div class="col-sm-10">#}
+{#                        <input type="password" class="form-control" id="password">#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="row mb-3">#}
+{#                        <label for="Confirm Password" class="col-sm-2 col-form-label">Confirm Password</label>#}
+{#                        <div class="col-sm-10">#}
+{#                            <input type="Confirm password" class="form-control" id="Confirm Password">#}
+{#                        </div>#}
+{#                    </div>#}
+
+{#                    <div class="form-group">#}
+{#                        <button type="submit" class="form-control btn btn-primary submit px-3">Register</button>#}
+{#                    </div>#}
+            </form>
+        </div>
+        {%  endif  %}
+    </div>
+</div>
+{% endblock %}

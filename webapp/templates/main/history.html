@@ -1,0 +1,68 @@
+{% extends "dash.html" %}
+{% block title %}Transactions{% endblock %}
+
+
+{% block page_content %}
+
+
+    <div class="container" style="margin-top: 115px;color: #fa1e0e">
+        <div class="card">
+            <h5 class="card-header text-uppercase text-center">User  Transactions</h5>
+            <table class="table  table-striped" style="color: #d3d3d3; background-color:#364e68">
+                    <thead>
+                        <tr>
+                            <th scope="col">Type</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Date/Time</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for i in trans_history %}
+                    <tr>
+                        <td scope="col">{{ i.transaction_type }}</td>
+                        <td scope="col">{{ i.transaction_amount }}</td>
+                        <td scope="col">{{ i.transaction_time }}</td>
+                        <td scope="col">{{ i.transaction_status }}</td>
+                    </tr>
+                    {% endfor %}
+
+
+
+                    </tbody>
+                </table>
+        </div>
+    </div>
+
+
+{#    <div class="container" style="margin-top: 115px;color: #fa1e0e">#}
+{#        <div class="card">#}
+{#            <h5 class="card-header text-uppercase text-center">Recieved  Transactions</h5>#}
+{#            <table class="table  table-striped" style="color: #d3d3d3; background-color:#364e68">#}
+{#                    <thead>#}
+{#                        <tr>#}
+{#                            <th scope="col">Type</th>#}
+{#                            <th scope="col">Amount</th>#}
+{#                            <th scope="col">Date/Time</th>#}
+{#                            <th scope="col">Status</th>#}
+{#                        </tr>#}
+{#                    </thead>#}
+{#                    <tbody>#}
+{#                    {% for i in receive_history %}#}
+{#                        {% if i.receiver_email != '' %}#}
+{#                        <tr>#}
+{#                            <td scope="col">{{ i.transaction_type }}</td>#}
+{#                            <td scope="col">{{ i.transaction_amount }}</td>#}
+{#                            <td scope="col">{{ i.transaction_time }}</td>#}
+{#                            <td scope="col">{{ i.transaction_status }}</td>#}
+{#                        </tr>#}
+{#                        {% endif %}#}
+{#                    {% endfor %}#}
+{##}
+{#                    </tbody>#}
+{#                </table>#}
+{#        </div>#}
+{#    </div>#}
+
+
+{% endblock %}

@@ -1,0 +1,138 @@
+{% extends "funding.html" %}
+{% block title %}Share Balance{% endblock %}
+
+
+ <body id="body-pd">
+
+
+<a class="navbar-brand" href="#" style=""><img src="{{ url_for('static',filename='img/logo.png') }}" alt="logo" style="width: 250px;height: 100px;background-color: whitesmoke;border-radius: 10px;"></a>
+{% block page_content %}
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+{% for message in get_flashed_messages() %}
+<div class="alert alert-warning " style="margin: 15px 0; background-color: transparent; color: white">
+    <button type="button" class="close" data-dismiss="alert" style="color: white">&times;</button>
+    {{ message }}
+</div>
+{% endfor %}
+
+
+<div class="fund">
+    <div class="options" style="width: 80% !important; margin: 2% auto !important;">
+    <div class="container text-center">
+        <h6 class="text-uppercase mt-4 mb-4" style="font-weight: bolder">Share balance with any user</h6>
+    </div>
+    <p class="text-center text-uppercase"  style="font-weight: bolder; font: var(--roboto);font-size: larger;color: red">Available balance: ${{ current_user.account_balance - 20 }}</p>
+    <div class="container mt-2">
+        <form id="" method="POST" action="{{ url_for('main.share_balance', username=current_user.username) }}" role="form">
+            {{ form.csrf_token() }}
+
+            <div class="form-group">
+                {{ form.receiver_email.label }}
+                {{ form.receiver_email(class="form-control", type="email", placeholder="Enter Email") }}
+            </div>
+
+            <div class="form-group">
+                {{ form.receiver_amount.label }}
+                {{ form.receiver_amount(class="form-control", type="numbers", placeholder="Amount") }}
+            </div>
+
+            {% for field, errors in form.errors.items() %}
+                <small style="margin: 12px 12px">
+                    {{ ', '.join(errors) }}
+                </small>
+            {% endfor %}
+
+
+
+            <div class="form-group">
+                <div class="modal-footer">
+                    <button type="submit" class="btn button secondary-button text-uppercase" style="border: 3px solid #132238">Confirm!</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+{% endblock %}
+
+
+{% block modal %}
+<!--BTC Modal -->
+<!-- LTC Modal -->
+<!-- ETH Modal -->
+
+{% endblock %}
+<div class="text-center black">
+    <small style="font-weight: bolder;">Powered by: Earcoins.ltd</small>
+</div>
+
+
+
+    <!-- clipboard js -->
+    <script src="{{ url_for('static', filename='js/clipboard.js') }}"></script>
+
+    <!--jquery -->
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+
+    {% block scripts %}
+    <script>
+
+        /*===== SHOW nav  =====*/
+         const showNavbar = (toggleId, navId, bodyId, headerId) =>{
+            const toggle = document.getElementById(toggleId),
+            nav = document.getElementById(navId),
+            bodypd = document.getElementById(bodyId),
+            headerpd = document.getElementById(headerId)
+
+            // Validate that all variables exist
+            if(toggle && nav && bodypd && headerpd){
+                toggle.addEventListener('click', ()=>{
+                    // show navbar
+                    nav.classList.toggle('show')
+                    // change icon
+                    toggle.classList.toggle('bx-x')
+                    // add padding to body
+                    bodypd.classList.toggle('body-pd')
+                    // add padding to header
+                    headerpd.classList.toggle('body-pd')
+                })
+            }
+        }
+
+        showNavbar('header-toggle','nav-bar','body-pd','header')
+
+        /*===== LINK ACTIVE  =====*/
+        const linkColor = document.querySelectorAll('.nav__link')
+
+        function colorLink(){
+            if(linkColor){
+                linkColor.forEach(l=> l.classList.remove('active'))
+                this.classList.add('active')
+            }
+        }
+        linkColor.forEach(l=> l.addEventListener('click', colorLink))
+
+
+
+
+        /*===== SHOW clipboard js  =====*/
+        /*-----tooltip-------*/
+        $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+
+    </script>
+    {% endblock %}
+ </body>
+
+
+</html>
+
+
+

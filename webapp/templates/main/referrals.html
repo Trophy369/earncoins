@@ -1,0 +1,223 @@
+{% extends "dash.html" %}
+{% block title %}Refferals{% endblock %}
+
+{% block page_content %}
+    <div class="container mt-5">
+        <div>
+            <h2 class="text-center text-uppercase" style="color: white; font-weight: normal; font-size: 30px">Referrals</h2>
+            <div class="row" style="align-items: center; margin: 60px auto 20px auto;justify-content: center">
+
+                <div class="col-sm-4">
+                    <div class="card  text-center" style="color: #d3d3d3; background-color: #364e68">
+                    <div class="card-body">
+                        <h6 class="card-title">TOTAL REFERRALS</h6>
+                        <h4 class="card-text">{{ user.referrals }}</h4>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="card text-center" style="color: #d3d3d3; background-color: #364e68">
+                        <div class="card-body">
+                            <h6 class="card-title">TOTAL EARNINGS</h6>
+                            {% if user.referrals > 0 %}
+                                <h4 class="card-text">${{ user.referrals * 15 }}.00</h4>
+                            {% else %}
+                                <h4 class="card-text">$0.00</h4>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <p></p>
+            <br><br><br>
+            <h5 style="color: white; font-weight: normal; font-family: var(--roboto)">Ref Link:</h5>
+            <span>
+                <!-- Target -->
+                <input class="copy-ref" id="foo" value="http://127.0.0.1:5000/earncoins/ecns/{{ current_user.referral_code }}" style="border: 3px solid #c8cbcf;border-radius: 5px;background-color: whitesmoke;padding: 0px 10px 1px 10px;width: 400px">
+
+                <!-- Trigger -->
+
+                <button style="border-left: 3px solid whitesmoke;background-color: whitesmoke" class="btn" data-toggle="tooltip" data-placement="top" title="Copy!" data-clipboard-target="#foo" aria-label="Copied!">
+                    <img src="{{ url_for('static', filename='img/clipboard.png')}}" alt="Copy to clipboard" style="height: 27px; background-color: whitesmoke">
+                </button>
+            </span>
+        <br>
+        <div class="about-details mt-5 mb-4">
+            <div class="point">
+                <p class="text-uppercase" style="font-weight: bold; color: #fa1e0e">Basic Referrals</p>
+            </div>
+            <div class="point-explain">
+                <p class="white" style="color: whitesmoke;font: var(--roboto)">
+                    Each user gets $15 on each Valid referral which can be withdrawn if Referral has an active plan <br> Each referrals transaction is updated Below for Maximum transparency.
+                </p>
+            </div>
+            <div class="point">
+                <p class="text-uppercase" style="font-weight: bold; color: #fa1e0e">Partnership Referrals</p>
+            </div>
+            <div class="point-explain">
+                <p class="white" style="color: whitesmoke;font: var(--roboto)">
+                    Each user gets 30% off each Active referrals deposit or Running investment <br> Contact support team for activation
+                    <br> Payment is made to your withdrawal wallet on each Referrals transaction which is updated below.
+                </p>
+            </div>
+
+        </div>
+        <br>
+            <table class="table table-striped pb-4" style="margin-top: 40px;margin-bottom: 55px; background-color: #c8cbcf; color: #181818; border-radius: 10px">
+                <thead>
+                    <tr>
+                        <th scope="col">Referral</th>
+                        <th scope="col">My Referral Transaction</th>
+                        <th scope="col">My Referral's Amount</th>
+                    </tr>
+                    {% for i in refs %}
+                        {% for j in ref_transactions %}
+                            {% if (i.user_referred == j.transaction_email and j.transaction_type == "DEPOSIT") and (j.transaction_amount >= 100 and j.transaction_amount <= 125) %}
+                                <tr>
+                                    <td scope="col">{{ i.user_referred }}</td>
+                                    <td scope="col">{{ j.transaction_type }}</td>
+                                    <td scope="col">{{ j.transaction_amount}}</td>
+                                </tr>
+                            {% elif (i.user_referred == j.transaction_email and j.transaction_type == "DEPOSIT") and (j.transaction_amount >= 125 and j.transaction_amount <= 200) %}
+                                <tr>
+                                    <td scope="col">{{ i.user_referred }}</td>
+                                    <td scope="col">{{ j.transaction_type }}</td>
+                                    <td scope="col">{{ j.transaction_amount - 25 }}</td>
+                                </tr>
+                            {% elif (i.user_referred == j.transaction_email and j.transaction_type == "DEPOSIT") and (j.transaction_amount >= 200 and j.transaction_amount <= 250) %}
+                                <tr>
+                                    <td scope="col">{{ i.user_referred }}</td>
+                                    <td scope="col">{{ j.transaction_type }}</td>
+                                    <td scope="col">{{ j.transaction_amount - 50 }}</td>
+                                </tr>
+                            {% elif (i.user_referred == j.transaction_email and j.transaction_type == "DEPOSIT") and (j.transaction_amount >= 250 and j.transaction_amount <= 400) %}
+                                <tr>
+                                    <td scope="col">{{ i.user_referred }}</td>
+                                    <td scope="col">{{ j.transaction_type }}</td>
+                                    <td scope="col">{{ j.transaction_amount - 70 }}</td>
+                                </tr>
+                            {% elif (i.user_referred == j.transaction_email and j.transaction_type == "DEPOSIT") and (j.transaction_amount >= 400 and j.transaction_amount <= 700) %}
+                                <tr>
+                                    <td scope="col">{{ i.user_referred }}</td>
+                                    <td scope="col">{{ j.transaction_type }}</td>
+                                    <td scope="col">{{ j.transaction_amount - 150 }}</td>
+                                </tr>
+                            {% elif (i.user_referred == j.transaction_email and j.transaction_type == "DEPOSIT") and (j.transaction_amount >= 700 and j.transaction_amount <= 1000) %}
+                                <tr>
+                                    <td scope="col">{{ i.user_referred }}</td>
+                                    <td scope="col">{{ j.transaction_type }}</td>
+                                    <td scope="col">{{ j.transaction_amount - 200 }}</td>
+                                </tr>
+                            {% elif (i.user_referred == j.transaction_email and j.transaction_type == "DEPOSIT") and (j.transaction_amount >= 1000 and j.transaction_amount <= 1200) %}
+                                <tr>
+                                    <td scope="col">{{ i.user_referred }}</td>
+                                    <td scope="col">{{ j.transaction_type }}</td>
+                                    <td scope="col">{{ j.transaction_amount - 300 }}</td>
+                                </tr>
+                            {% elif (i.user_referred == j.transaction_email and j.transaction_type == "DEPOSIT") and (j.transaction_amount >= 1200 and j.transaction_amount <= 1900) %}
+                                <tr>
+                                    <td scope="col">{{ i.user_referred }}</td>
+                                    <td scope="col">{{ j.transaction_type }}</td>
+                                    <td scope="col">{{ j.transaction_amount - 500 }}</td>
+                                </tr>
+                            {% elif (i.user_referred == j.transaction_email and j.transaction_type == "DEPOSIT") and j.transaction_amount >= 1900 %}
+                                <tr>
+                                    <td scope="col">{{ i.user_referred }}</td>
+                                    <td scope="col">{{ j.transaction_type }}</td>
+                                    <td scope="col">{{ j.transaction_amount - 1000 }}</td>
+                                </tr>
+                            {% elif i.user_referred == j.transaction_email and j.transaction_type == "WITHDRAWAL" %}
+                                <tr>
+                                    <td scope="col">{{ i.user_referred }}</td>
+                                    <td scope="col">{{ j.transaction_type }}</td>
+                                    <td scope="col">{{ j.transaction_amount}}</td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                </thead>
+            </table>
+
+        </div>
+    </div>
+
+    <!-- clipboard js -->
+    <script src="{{ url_for('static', filename='js/clipboard.js') }}"></script>
+{% endblock %}
+{% block scripts %}
+    <script>
+        function copyToClipboard(element){
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(element).text()).select();
+            document.execCommand("copy");
+            $temp.remove();
+        }
+        /*===== SHOW nav  =====*/
+         const showNavbar = (toggleId, navId, bodyId, headerId) =>{
+            const toggle = document.getElementById(toggleId),
+            nav = document.getElementById(navId),
+            bodypd = document.getElementById(bodyId),
+            headerpd = document.getElementById(headerId)
+
+            // Validate that all variables exist
+            if(toggle && nav && bodypd && headerpd){
+                toggle.addEventListener('click', ()=>{
+                    // show navbar
+                    nav.classList.toggle('show')
+                    // change icon
+                    toggle.classList.toggle('bx-x')
+                    // add padding to body
+                    bodypd.classList.toggle('body-pd')
+                    // add padding to header
+                    headerpd.classList.toggle('body-pd')
+                })
+            }
+        }
+
+        showNavbar('header-toggle','nav-bar','body-pd','header')
+
+        /*===== LINK ACTIVE  =====*/
+        const linkColor = document.querySelectorAll('.nav__link')
+
+        function colorLink(){
+            if(linkColor){
+                linkColor.forEach(l=> l.classList.remove('active'))
+                this.classList.add('active')
+            }
+        }
+        linkColor.forEach(l=> l.addEventListener('click', colorLink))
+
+
+        /*===== SHOW clipboard js  =====*/
+        new ClipboardJS('.btn', {
+            container: document.getElementById('modal')
+        });
+        var clipboard = new ClipboardJS('.btn');
+
+        clipboard.on('success', function(e) {
+            console.info('Action:', e.action);
+            console.info('Text:', e.text);
+            console.info('Trigger:', e.trigger);
+
+            e.clearSelection();
+        });
+
+        clipboard.on('error', function(e) {
+            console.error('Action:', e.action);
+            console.error('Trigger:', e.trigger);
+        });
+
+        /*-----tooltip-------*/
+        $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+
+
+
+
+
+    </script>
+{% endblock %}

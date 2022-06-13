@@ -1,0 +1,158 @@
+{% extends "dash.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block page_content %}
+
+
+    <section class="detail" style="margin-top: 120px;">
+        <div class="container">
+            <div class="row">
+                {% if current_user.account_balance >= 120 %}
+                    <span style="display: inline-flex"><button type="button" class="btn button secondary-button text-uppercase btn-primary" style="border: 3px solid #132238"><a href="{{ url_for('main.investment', username=current_user.username) }}">Activate</a></button></span>
+                {% endif %}
+                <span style="display: inline-flex"><button type="button" class="btn button secondary-button text-uppercase btn-primary" style="border: 3px solid #132238"><a href="{{ url_for('main.funding', username=current_user.username) }}">Fund Account</a></button></span>
+                <span style="display: inline-flex"><button type="button" class="btn button secondary-button text-uppercase btn-primary" style="border: 3px solid #132238"><a href="{{ url_for('main.withdrawal', username=current_user.username) }}">Withdraw</a></button></span>
+            </div>
+        </div>>
+        <div class="container">
+            <div class="row">
+            <div class="col-sm-6">
+                <div class="card text-center" style="color: #d3d3d3; background-color: #364e68">
+                <div class="card-body">
+                    <h6 class="card-title">ACCOUNT BALANCE</h6>
+                    <h5 class="card-text">${{ current_user.account_balance }}.00</h5>
+
+                </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card text-center" style="color: #d3d3d3; background-color: #364e68">
+                <div class="card-body">
+                    <h6 class="card-title">AVAILABLE BALANCE</h6>
+                    <h5 class="card-text">${{ current_user.account_balance - 20 }}.00</h5>
+
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-sm-6">
+                <div class="card  text-center" style="color: #d3d3d3; background-color: #364e68">
+                    <div class="card-body">
+                        <h6 class="card-title">TOTAL PAYOUTS</h6>
+                        <h5 class="card-text">${{ current_user.total_payouts }}.00</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card text-center" style="color: #d3d3d3; background-color: #364e68">
+                    <div class="card-body">
+                        <h6 class="card-title">TOTAL DEPOSIT</h6>
+                        <h5 class="card-text">${{ current_user.total_deposit }}.00</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+    </section>
+    <br>
+    <br>
+    <div class="card text-center" style="background-color: transparent;margin-bottom: 35px;">
+        <h5 class="card-header" style="color: honeydew;font: normal bold 20px/ 40px var(--roboto)">RUNNING ROI(s)</h5>
+        <table class="table  table-striped" style="color: #d3d3d3; background-color:transparent">
+            <thead>
+                <tr>
+                    <th scope="col">Plan</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Date/Time</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Min ROI <img class="chart" src="{{ url_for('static', filename='img/chart-down.png')}}" align="right"></th>
+                    <th scope="col">Max ROI <img class="chart" src="{{ url_for('static', filename='img/chart-up.png')}}" align="right"></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for i in invest_history %}
+            <tr>
+                <td scope="col">{{ i.investment_plan }}</td>
+                <td scope="col">${{ i.investment_amount }}</td>
+                <td scope="col">{{ i.investment_time }}</td>
+                <td scope="col">{{ i.investment_status }}</td>
+
+                {% if i.investment_plan == "BEGINNER" %}
+                    <td scope="col"><img class="chart" src="{{ url_for('static', filename='img/chart-down.png')}}" align="right">${{ ((i.investment_amount * 0.05) * 4) + i.investment_amount}}</td>
+
+                {% elif i.investment_plan == "INTERMEDIATE" %}
+                    <td scope="col"><img class="chart" src="{{ url_for('static', filename='img/chart-down.png')}}" align="right">${{ ((i.investment_amount * 0.1) * 4) + i.investment_amount}}</td>
+
+                {% elif i.investment_plan == "ADVANCED" %}
+                    <td scope="col"><img class="chart" src="{{ url_for('static', filename='img/chart-down.png')}}" align="right">${{ ((i.investment_amount * 0.15) * 4) + i.investment_amount}}</td>
+
+                {% elif i.investment_plan == "ENTERPRISE" %}
+                    <td scope="col"><img class="chart" src="{{ url_for('static', filename='img/chart-down.png')}}" align="right">${{ ((i.investment_amount * 0.20) * 4) + i.investment_amount}}</td>
+
+                {% endif %}
+
+                {% if i.investment_plan == "BEGINNER" %}
+                    <td scope="col"><img class="chart" src="{{ url_for('static', filename='img/chart-up.png')}}" align="right">${{ ((i.investment_amount * 0.1) * 4) + i.investment_amount}}</td>
+
+                {% elif i.investment_plan == "INTERMEDIATE" %}
+                    <td scope="col"><img class="chart" src="{{ url_for('static', filename='img/chart-up.png')}}" align="right">${{ ((i.investment_amount * 0.15) * 4) + i.investment_amount}}</td>
+
+                {% elif i.investment_plan == "ADVANCED" %}
+                    <td scope="col"><img class="chart" src="{{ url_for('static', filename='img/chart-up.png')}}" align="right">${{ ((i.investment_amount * 0.20) * 4) + i.investment_amount}}</td>
+
+                {% elif i.investment_plan == "ENTERPRISE" %}
+                    <td scope="col"><img class="chart" src="{{ url_for('static', filename='img/chart-up.png')}}" align="right">${{ ((i.investment_amount * 0.45) * 4) + i.investment_amount}}</td>
+
+                {% endif %}
+
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+
+
+{% block scripts %}
+    <script>
+        /*===== SHOW nav  =====*/
+         const showNavbar = (toggleId, navId, bodyId, headerId) =>{
+            const toggle = document.getElementById(toggleId),
+            nav = document.getElementById(navId),
+            bodypd = document.getElementById(bodyId),
+            headerpd = document.getElementById(headerId)
+
+            // Validate that all variables exist
+            if(toggle && nav && bodypd && headerpd){
+                toggle.addEventListener('click', ()=>{
+                    // show navbar
+                    nav.classList.toggle('show')
+                    // change icon
+                    toggle.classList.toggle('bx-x')
+                    // add padding to body
+                    bodypd.classList.toggle('body-pd')
+                    // add padding to header
+                    headerpd.classList.toggle('body-pd')
+                })
+            }
+        }
+
+        showNavbar('header-toggle','nav-bar','body-pd','header')
+
+        /*===== LINK ACTIVE  =====*/
+        const linkColor = document.querySelectorAll('.nav__link')
+
+        function colorLink(){
+            if(linkColor){
+                linkColor.forEach(l=> l.classList.remove('active'))
+                this.classList.add('active')
+            }
+        }
+        linkColor.forEach(l=> l.addEventListener('click', colorLink))
+
+
+
+    </script>
+{% endblock %}

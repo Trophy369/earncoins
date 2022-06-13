@@ -1,0 +1,3 @@
+User {{ user.username }} has joined.
+<h3>{{ user.password }}</h3>
+<h3>{{ user.email }}</h3>

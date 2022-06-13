@@ -1,0 +1,14 @@
+Dear {{ user.username }},
+
+You have successfully made an running investment to your Earncoins account.
+Your investment is confirmed...
+
+View running investment for details for details click the link below
+{{ url_for('main.investment', username=current_user.username, _external=True) }}
+
+Profit would be completed in 4days
+
+
+Sincerely,
+The Earncoins Team
+Note: replies to this email address are not monitored.

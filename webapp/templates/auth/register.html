@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block head %}
+    {% block styles %}
+        {{ super() }}
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/login.css') }}">
+    {% endblock %}
+{% endblock %}
+{% block title %}EarnCoins - Register{% endblock %}
+
+{#{% block page_content %}#}
+{% include 'navbar.html' %}
+
+{#{% for message in get_flashed_messages() %}#}
+{#    <div class="alert alert-warning">#}
+{#        <button type="button" class="close" data-dismiss="alert">&times;</button>#}
+{#        {{ message }}#}
+{#    </div>#}
+{#{% endfor %}#}
+
+
+    {% block register %}
+    <!-- Sign up form -->
+
+        <section class="ftco-section">
+            <div class="container">
+
+            <div class="row justify-content-center">
+                <div class=" col-md-10 col-lg-6" style="background-color: #364e68; border-radius: 10px">
+                    <div class="login-wrap p-0" style="justify-content: center;display: grid;">
+
+                        <img src="{{ url_for('static',filename='img/banner-logo.png') }}" alt="banner-logo">
+                        <form id="login" onsubmit="process(event)" method="POST" action="{{ url_for('.register')}}" class="signin-form">
+
+                            {{ form.hidden_tag() }}
+                            <div class="form-group">
+                                {{ form.email.label }}
+                                {{ form.email(class="form-control", type="email", placeholder="Enter Email") }}
+                                {% for error in form.email.errors %}
+                                <span style="color: #ffffff">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group">
+                                {{ form.username.label }}
+                                {{ form.username(class="form-control", type="username", placeholder="Enter Username") }}
+                                {% for error in form.username.errors %}
+                                <span style="color: #ffffff">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group">
+                                {{ form.password.label }}
+                                {{ form.password(class="form-control", type="password", placeholder="Enter Password", id="password-field") }}
+{#                                {% for error in form.password.errors %}#}
+{#                                <span style="color: #ffffff">{{ error }}</span>#}
+{#                                {% endfor %}#}
+                            </div>
+                            <div class="form-group">
+                                {{ form.confirm(class="form-control", type="password", placeholder="Confirm Password") }}
+{#                                {% for error in form.email.errors %}#}
+{#                                <span style="color: #ffffff">[{{ error }}]</span>#}
+{#                                {% endfor %}#}
+                            </div>
+                            {% for field, errors in form.errors.items() %}
+                                <small style="margin: 12px 12px">
+                                    {{ ', '.join(errors) }}
+                                </small>
+                            {% endfor %}
+{#                            <div class="form-group">#}
+{#                                {{ form.phone.label }}#}
+{#                                <input id="phone" class="form-control" type="tel" />#}
+{#                                <input type="submit" class="btn" value="Verify" />#}
+{#                                {{ form.phone(class_="form-control", type="tel", id="phone") }}#}
+{##}
+{#                            </div>#}
+
+{#                            <div class="form-group">#}
+{#                                {{ form.country.label }}#}
+{#                                <select class="selectpicker countrypicker " data-flag="true" ></select>#}
+{#                                <input id="" class="selectpicker country form-control" type="text" />#}
+{#                                {{ form.country(class="form-control selectpicker country",  type="select", placeholder="Select Country") }}#}
+{#                            </div>#}
+                            <div class="form-group d-md-flex">
+
+                                <div class="w-100">
+                                    {{ form.agree }} <a href="{{ url_for('earncoins.privacy') }}"  style="color: #fa1e0e; padding-left: 5px">I Agree </a>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="form-control btn btn-primary submit px-3">Register</button>
+                            </div>
+                            <div class="form-group d-md-flex">
+                                <div class="w-100 text-center">
+                                    <a href="{{ url_for('auth.login') }}" style="color: #ffffff">I am already member?</a>
+                                </div>
+
+                            </div>
+                        </form>
+{#                     <select class="selectpicker countrypicker " data-flag="true" ></select>#}
+
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+    {% endblock %}

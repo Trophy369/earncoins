@@ -1,0 +1,31 @@
+{% extends "dash.html" %}
+{% block title %}Fund account{% endblock %}
+{% block page_content %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="border: 2px solid;">
+                    <h2>Deposit Funds</h2><hr>
+                    <h3>Make a Deposit Now</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Currency Type</option>
+                                <option value="1">USD</option>
+                            </select>
+
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Amount</label>
+                                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="$0.00">
+                            </div>
+
+                            <a href="#" class="btn btn-primary" style="margin-bottom: 9px;">Complete Payment</a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

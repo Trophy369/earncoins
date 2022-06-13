@@ -1,0 +1,14 @@
+<div style="background-color:whitesmoke; color: #132238; margin: 10px; padding: 50px ">
+    <h3>Dear {{ user.username }},</h3>
+    <p>You have successfully made an running investment to your Earncoins account.</p>
+    <p>Your investment is confirmed... <br>View running investment for details <a href="{{ url_for('main.investment', username=current_user.username, _external=True) }}">click here</a>. </p>
+    <br>
+    <h4>Profit would be uploaded in 4days</h4>
+
+
+    <p style="text-align: right">Sincerely,</p>
+    <p style="text-align: right">The Earncoins Team</p>
+    <p><small>Note: replies to this email address are not monitored.</small></p>
+</div>
+
+

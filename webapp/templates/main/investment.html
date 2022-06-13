@@ -1,0 +1,223 @@
+{% extends "dash.html" %}
+{% block title %}Investments{% endblock %}
+
+{% block page_content %}
+{% for message in get_flashed_messages() %}
+<div class="alert alert-warning text-center" style="margin: 15px 170px; background-color: transparent; color: white">
+    <button type="button" class="close" data-dismiss="alert" style="color: white; padding: 3px">&times;</button>
+    {{ message }}
+</div>
+{% endfor %}
+<section class="pricing-area">
+    <div class="card text-center" style="background-color: transparent;margin-bottom: 35px;">
+        <h5 class="card-header" style="color: honeydew;font: normal bold 20px/ 40px var(--roboto)">RUNNING ROI(s)</h5>
+        <table class="table  table-striped" style="color: #d3d3d3; background-color:transparent">
+            <thead>
+                <tr>
+                    <th scope="col">Plan</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Date/Time</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Min ROI <img class="chart" src="{{ url_for('static', filename='img/chart-down.png')}}" align="right"></th>
+                    <th scope="col">Max ROI <img class="chart" src="{{ url_for('static', filename='img/chart-up.png')}}" align="right"></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for i in invest_history %}
+            <tr>
+                <td scope="col">{{ i.investment_plan }}</td>
+                <td scope="col">${{ i.investment_amount }}</td>
+                <td scope="col">{{ i.investment_time }}</td>
+                <td scope="col">{{ i.investment_status }}</td>
+
+                {% if i.investment_plan == "BEGINNER" %}
+                    <td scope="col"><img class="chart" src="{{ url_for('static', filename='img/chart-down.png')}}" align="right">${{ ((i.investment_amount * 0.05) * 4) + i.investment_amount}}</td>
+
+                {% elif i.investment_plan == "INTERMEDIATE" %}
+                    <td scope="col"><img class="chart" src="{{ url_for('static', filename='img/chart-down.png')}}" align="right">${{ ((i.investment_amount * 0.1) * 4) + i.investment_amount}}</td>
+
+                {% elif i.investment_plan == "ADVANCED" %}
+                    <td scope="col"><img class="chart" src="{{ url_for('static', filename='img/chart-down.png')}}" align="right">${{ ((i.investment_amount * 0.15) * 4) + i.investment_amount}}</td>
+
+                {% elif i.investment_plan == "ENTERPRISE" %}
+                    <td scope="col"><img class="chart" src="{{ url_for('static', filename='img/chart-down.png')}}" align="right">${{ ((i.investment_amount * 0.20) * 4) + i.investment_amount}}</td>
+
+                {% endif %}
+
+                {% if i.investment_plan == "BEGINNER" %}
+                    <td scope="col"><img class="chart" src="{{ url_for('static', filename='img/chart-up.png')}}" align="right">${{ ((i.investment_amount * 0.1) * 4) + i.investment_amount}}</td>
+
+                {% elif i.investment_plan == "INTERMEDIATE" %}
+                    <td scope="col"><img class="chart" src="{{ url_for('static', filename='img/chart-up.png')}}" align="right">${{ ((i.investment_amount * 0.15) * 4) + i.investment_amount}}</td>
+
+                {% elif i.investment_plan == "ADVANCED" %}
+                    <td scope="col"><img class="chart" src="{{ url_for('static', filename='img/chart-up.png')}}" align="right">${{ ((i.investment_amount * 0.20) * 4) + i.investment_amount}}</td>
+
+                {% elif i.investment_plan == "ENTERPRISE" %}
+                    <td scope="col"><img class="chart" src="{{ url_for('static', filename='img/chart-up.png')}}" align="right">${{ ((i.investment_amount * 0.45) * 4) + i.investment_amount}}</td>
+
+                {% endif %}
+
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center services-title">
+                <h1 class="text-uppercase title-text">Profit Plans</h1>
+            </div>
+        </div>
+        <div class="container services-list">
+            <div class="pricing-card">
+                <div class="services">
+                    <div class="card__pricing">
+                        <p class="card__pricing-symbol"><small>Min:</small> $100</p>
+                        <p class="card__pricing-month"><small>Max:</small> $499</p>
+                    </div>
+                    <div class="text-center my-3">
+                        <p class="plan-title">BEGINNER PLAN</p>
+                    </div>
+
+                    <div class="card-body text-center">
+                        <hr>
+                        <h1 class="card-title text-uppercase">5%</h1>
+                        <hr>
+                        <p class="card-text">5%-10% PROFIT DAILY</p>
+                        <p class="card-text">Duration: (4 Days)</p>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="services">
+                    <div class="card__pricing">
+                        <p class="card__pricing-symbol"><small>Min:</small> $500</p>
+                        <p class="card__pricing-month"><small>Max:</small> $1999</p>
+                    </div>
+                    <div class="text-center my-3">
+                        <p class="plan-title">INTERMEDIATE PLAN</p>
+                    </div>
+                    <p></p>
+                    <div class="card-body text-center">
+                        <hr>
+                        <h1 class="card-title text-uppercase">10%</h1>
+                        <hr>
+                        <p class="card-text">10%-15% PROFIT DAILY</p>
+                        <p class="card-text">Duration: (4 Days)</p>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="services">
+                    <div class="card__pricing">
+                        <p class="card__pricing-symbol"><small>Min:</small> $2000</p>
+                        <p class="card__pricing-month"><small>Max:</small> $4999</p>
+                    </div>
+                    <div class="text-center my-3">
+                        <p class="plan-title">ADVANCED PLAN</p>
+                    </div>
+
+                    <div class="card-body text-center">
+                        <hr>
+                        <h1 class="card-title text-uppercase">15%</h1>
+                        <hr>
+                        <p class="card-text">15%-20% PROFIT DAILY</p>
+                        <p class="card-text">Duration: (4 Days)</p>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+            <div class="cal pricing-card">
+                <div class="services">
+                    <div class="card__pricing">
+                        <p class="card__pricing-symbol"><small>Min:</small> $5000</p>
+                        <p class="card__pricing-month"><small>Max:</small> Above</p>
+                    </div>
+                    <div class="text-center my-3">
+                        <p class="plan-title">ENTERPRISE PLAN</p>
+                    </div>
+
+                    <div class="card-body text-center">
+                        <hr>
+                        <h1 class="card-title text-uppercase">20%</h1>
+                        <hr>
+                        <p class="card-text">20%-45% PROFIT DAILY</p>
+                        <p class="card-text">Duration: (4 Days)</p>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="services">
+                    <div class="text-center mt-3">
+                        <p class="plan-title">ACTIVATE PLAN</p>
+                    </div>
+                    <div class="card-body text-center">
+                        <hr>
+{#                        investment form#}
+                        <form id="login" method="POST" action="{{ url_for('main.investment', username=current_user.username) }}">
+                            {{ form.csrf_token() }}
+                            <div class="form-group">
+                                {{ form.investment_plan.label }}
+                                {{ form.investment_plan(class="form-control", type="select", placeholder="Select a plan") }}
+                                {% for error in form.investment_plan.errors %}
+                                <span style="color: #ffffff">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            <p class="text-center">Available amount: ${{ current_user.account_balance - 20 }}</p>
+                            <div class="form-group">
+                                {{ form.investment_amount.label }}
+                                {{ form.investment_amount(class="form-control", type="numbers", placeholder="Amount") }}
+                                {% for error in form.investment_amount.errors %}
+                                <span style="color: #ffffff">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+
+                            {% for field, errors in form.errors.items() %}
+                                <small style="margin: 12px 12px">
+                                    {{ ', '.join(errors) }}
+                                </small>
+                            {% endfor %}
+                            <div class="form-group mb-3">
+                                <button type="submit" class="btn button primary-button text-uppercase" style="border: 3px solid #132238">Activate!</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+<section class="logos">
+    <div class="container-fluid">
+        <div class="logos-row">
+            <div class="single-brand">
+                <img src="{{ url_for('static', filename='img/payment_4.png') }}" alt="Brand-1 ">
+            </div>
+            <div class="single-brand">
+                <img src="{{ url_for('static', filename='img/payment_5.png') }}" alt="Brand-1 ">
+            </div>
+            <div class="single-brand">
+                <img src="{{ url_for('static', filename='img/ethereum-logo.png') }}" alt="Brand-1 ">
+            </div>
+            <div class="single-brand">
+                <img src="{{ url_for('static', filename='img/OKEX.png') }}" alt="Brand-1 ">
+            </div>
+            <div class="single-brand">
+                <img src="{{ url_for('static', filename='img/metamask-1.png') }}" alt="Brand-1 ">
+            </div>
+            <div class="single-brand">
+                <img src="{{ url_for('static', filename='img/alliance-logo.png') }}" alt="Brand-1 ">
+            </div>
+            <div class="single-brand">
+                <img src="{{ url_for('static', filename='img/litecoin-logo.png') }}" alt="Brand-1 ">
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+</section>
+{% endblock %}

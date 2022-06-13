@@ -1,0 +1,28 @@
+<div style="background-color:whitesmoke; color: #132238; margin: 10px; padding: 50px ">
+    <h3>Dear {{ user.username }},</h3>
+    <p>You have successfully made a deposit you current have ${{ current_user.account_balance }} to your Earncoins account.
+        <br>Deposit amount wound be reviewed and updated to account balance in a short while </p>
+    <p>Your transaction is being confirmed... <br>View transaction history for details . </p>
+    <br>
+    <h4>Proceed to Invest <a href="https://earncoins.ltd/investment/shana">Invest</a>.</h4>
+
+
+    <p style="text-align: right">Sincerely,</p>
+    <p style="text-align: right">The Earncoins Team</p>
+    <p><small>Note: replies to this email address are not monitored.</small></p>
+</div>
+
+
+{#<div style="background-color:whitesmoke; color: #132238; margin: 10px; padding: 50px ">#}
+{#    <h3>Dear {{ user.username }},</h3>#}
+{#    <p>You have successfully made a deposit you now have ${{ current_user.account_balance }} to your Earncoins account.</p>#}
+{#    <p>Your transaction is being confirmed... <br>View transaction history for details <a href="{{ url_for('main.history', username=current_user.username, _external=True) }}">click here</a>. </p>#}
+{#    <br>#}
+{#    <h4>Proceed to Invest <a href="{{ url_for('main.investment', username=current_user.username, _external=True) }}">click here</a>.</h4>#}
+{##}
+{##}
+{#    <p style="text-align: right">Sincerely,</p>#}
+{#    <p style="text-align: right">The Earncoins Team</p>#}
+{#    <p><small>Note: replies to this email address are not monitored.</small></p>#}
+{#</div>#}
+{##}
