@@ -2,27 +2,23 @@ from flask import Flask, flash, redirect, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_mail import Mail
-from flask_assets import Environment, Bundle
 from flask_fontawesome import FontAwesome
-from flask_caching import Cache
 from flask_admin import Admin, expose, BaseView, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.contrib import sqla
 from flask_bootstrap import Bootstrap
 from flask_login import current_user, login_required
+from config import config
 
 from webapp.decorators import has_role
-
 
 
 db = SQLAlchemy()
 migrate = Migrate()
 mail = Mail()
-assets_env = Environment()
 fa = FontAwesome()
-
 bootstrap = Bootstrap()
-cache = Cache()
+
 
 # babel = Babel()
 
@@ -48,7 +44,7 @@ class MyAdminIndexView(AdminIndexView):
         return super(MyAdminIndexView, self).index()
 
 
-def create_app(object_name):
+def create_app(ProdConfig):
     """
     An flask application factory, as explained here:
     http://flask.pocoo.org/docs/patterns/appfactories/
@@ -58,19 +54,16 @@ def create_app(object_name):
                      e.g. project.config.ProdConfig
     """
     app = Flask(__name__)
-    app.config.from_object(object_name)
+    app.config.from_object(ProdConfig)
 
     # UPLOAD_FOLDER = 'static/img/'
     # app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-
-    assets_env.init_app(app)
     db.init_app(app)
     migrate.init_app(app, db)
     mail.init_app(app)
     fa.init_app(app)
     bootstrap.init_app(app)
-    cache.init_app(app)
     # babel.init_app(app)
     app.static_folder = 'static'
 
@@ -86,11 +79,9 @@ def create_app(object_name):
     from .earncoins import create_module as earncoins_create_module
     from .main import create_module as main_create_module
 
-
     auth_create_module(app)
     earncoins_create_module(app)
     main_create_module(app)
-
 
     return app
 

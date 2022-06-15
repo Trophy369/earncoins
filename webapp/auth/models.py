@@ -9,6 +9,8 @@ from flask import current_app
 from werkzeug.security import generate_password_hash, check_password_hash
 import jwt
 from time import time
+
+
 from binascii import hexlify
 import functools as func
 
@@ -129,15 +131,15 @@ class User(db.Model, UserMixin):
         backref=db.backref('users', lazy='dynamic')
     )
 
-    def __init__(self, username=""):
-        default = Role.query.filter_by(name="default").one()
-        self.roles.append(default)
-        self.username = username
+    # def __init__(self, email, username,):
+    #     default = Role.query.filter_by(name="default").one()
+    #     self.roles.append(default)
+    #     self.username = username
+    #     self.email = email
 
     # def __repr__(self):
     #     return '<User {}>'.format(self.username)
 
-    #@cache.memoize(60)
     def has_role(self, name):
         for role in self.roles:
             if role.name == name:
@@ -342,7 +344,7 @@ class Share(db.Model):
         self.share_email = share_email
 
 
-#login_manager.anonymous_user = AnonymousUser
+login_manager.anonymous_user = AnonymousUser
 
 
 @login_manager.user_loader

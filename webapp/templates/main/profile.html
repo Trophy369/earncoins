@@ -17,6 +17,10 @@
 {% block page_content %}
 <p>&nbsp;</p>
 <p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
     {% for message in get_flashed_messages() %}
     <div class="alert alert-warning " style="margin: 15px 0; background-color: transparent; color: white">
         <button type="button" class="close" data-dismiss="alert" style="color: white">&times;</button>
@@ -24,7 +28,7 @@
     </div>
     {% endfor %}
 
-<section class="container" style="color: #fff3cd;background-color: #364e68; height: 52rem; border-radius: 10px">
+<section class="container" style="color: #fff3cd;background-color: #364e68; height: 52rem; border-radius: 10px; margin-top:15%">
     <div class="row">
         <div class="col-4">
             {% if current_user.profile_pic %}

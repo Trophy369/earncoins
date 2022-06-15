@@ -109,8 +109,7 @@ def register():
                 session.pop('h_ecns', None)
             return redirect(url_for('auth.login'))
 
-        flash('A confirmation email has been sent to you by email. Due to Google policy update Check [spam mail] if mail'
-              'does not appear in [inbox] and click on [not spam] to get Earncoins updates')
+        flash('A confirmation email has been sent to you by email. Due to Google policy update Check [spam mail] if mail does not appear in [inbox] and click on [not spam] to get Earncoins updates')
         return redirect(url_for('auth.login'))
 
     return render_template('auth/register.html', form=form)
