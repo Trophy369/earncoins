@@ -1,3 +1,4 @@
+import os
 from flask import Flask, flash, redirect, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -8,7 +9,7 @@ from flask_admin.contrib.sqla import ModelView
 from flask_admin.contrib import sqla
 from flask_bootstrap import Bootstrap
 from flask_login import current_user, login_required
-from config import config
+#from config import config
 
 from webapp.decorators import has_role
 
@@ -44,16 +45,17 @@ class MyAdminIndexView(AdminIndexView):
         return super(MyAdminIndexView, self).index()
 
 
-def create_app(ProdConfig):
+def create_app():
     """
     An flask application factory, as explained here:
     http://flask.pocoo.org/docs/patterns/appfactories/
-
+    env ( set/export CONFIG_TYPE)
     Arguments:
         object_name: the python path of the config object,
                      e.g. project.config.ProdConfig
     """
     app = Flask(__name__)
+    CONFIG_TYPE = os.getenv('CONFIG_TYPE', default='config.ProdConfig')
     app.config.from_object(ProdConfig)
 
     # UPLOAD_FOLDER = 'static/img/'
