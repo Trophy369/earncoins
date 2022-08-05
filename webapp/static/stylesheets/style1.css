@@ -21,7 +21,7 @@
 
 
     /* font family variables. */
-    --roboto: 'Roboto', cursive;
+    --roboto: 'Roboto', sans-serif;
     /*========== Colors ==========*/
     --hue: 45;
     --sat: 98%;
@@ -49,6 +49,31 @@ body {
 * {
   margin: 0;
   padding: 0;
+}
+
+/* Pre-loader */
+/* Center the loader */
+.loader {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    /*overflow: hidden;*/
+    font: var(--roboto);
+    font-size: 60px;
+    font-weight: bolder;
+    color: whitesmoke;
+}
+
+.loader > div{
+    position: absolute;
+    margin: -76px 0 0 -76px;
+    left: 37%;
+    top: 50%;
+    z-index: 1;
+
+}
+.content{
+    display:none;
 }
 /* Buttons */
 
@@ -137,7 +162,7 @@ button:hover
 }
 
 .header_area .main-menu .nav-item .nav-link{
-    font: normal 500 15px/20px var(--roboto);
+    font: normal 400 17px/22px var(--roboto);
     text-transform: uppercase;
     padding: 1rem;
     color: var(--navtext-color);
@@ -428,7 +453,7 @@ button:hover
 .certificate .about-details .point-explain p{
     font: var(--roboto);
     font-weight: normal;
-    color:#364e68;
+    color:#7491b0;
 
 
 }
@@ -443,8 +468,9 @@ button:hover
 
     /* start testimonial section*/
 .reviews {
-
+    height: 270px;
     margin: 20px auto 20px auto;
+
 }
 .reviews .testimonial-header .review-title h2 span{
   font: normal bold 20px/ 15px var(--roboto);
@@ -452,18 +478,18 @@ button:hover
   color: #fa1e0e;
 }
 
-.content-area {
-
+.description {
+    display: none;
     padding: 30px 20px;
     border-radius: 15px;
 }
-.content-area:hover {
+.description:hover {
     background: transparent;
 
 }
 
-.reviews .content-area .content .description {
-    position: relative;
+.reviews .description {
+    position: absolute;
   font-size: 20px;
   line-height: 26px;
   color: #fff;
@@ -471,8 +497,9 @@ button:hover
   border: 2px solid #ffffff;
   border-radius: 25px;
   border-left: 3px solid #fa1e0e;
+    margin: 20px 0 20px 180px;
 }
-.reviews .content-area .content .description:after {
+.reviews .description:after {
   content: "";
   width: 20px;
   height: 20px;
@@ -484,9 +511,9 @@ button:hover
   left: 55px;
   transform: skewY(-45deg);
 }
-.owl-theme .owl-dots{
-    display: none !important;
-}
+/*.owl-theme .owl-dots{*/
+/*    display: none !important;*/
+/*}*/
 
     /*end testimonial section*/
 /*==================== start logo section ====================*/
