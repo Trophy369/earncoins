@@ -6,7 +6,7 @@ from flask import (render_template, request,
 from flask_login import login_required, logout_user, login_user, current_user
 from .forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm
 from .models import User, db, Referrer, current_app
-from ..email import send_email, send_password_reset_email, send_confirmation_email
+from ..email import send_async_email, send_password_reset_email, send_confirmation_email
 # from flask_babel import _
 
 
@@ -29,7 +29,7 @@ def before_request():
             return redirect(url_for('auth.unconfirmed'))
 
 
-@auth_blueprint.route('/unconfirmed')
+@auth_blueprint.route('/unconfirmed', methods=['GET', 'POST'])
 def unconfirmed():
     if current_user.is_anonymous or current_user.confirmed:
         return redirect(url_for('main.index'))
@@ -109,21 +109,24 @@ def register():
                 session.pop('h_ecns', None)
             return redirect(url_for('auth.login'))
 
-        flash('A confirmation email has been sent to you by email. Due to Google policy update Check [spam mail] if mail does not appear in [inbox] and click on [not spam] to get Earncoins updates')
+        flash('Login to continue, A confirmation email has been sent to you by email. Due to Google policy update Check [spam mail] if mail does not appear in [inbox] and click on [not spam] to get Earncoins updates')
         return redirect(url_for('auth.login'))
 
     return render_template('auth/register.html', form=form)
 
 
-@auth_blueprint.route('/confirm/<token>')
+@auth_blueprint.route('/confirm/<token>', methods=['GET', 'POST'])
 @login_required
 def confirm(token):
     if current_user.confirmed:
+        #db.session.commit()
+        #flash('You have confirmed your account. Login!')
+        # return redirect(url_for('auth.login'))
         return redirect(url_for('main.index'))
     if current_user.confirm(token):
         db.session.commit()
-        flash('You have confirmed your account. Thanks!')
-        return redirect(url_for('auth.login'))
+        flash('Confirmation Sucessful! Click on [ Account ]. Fund, Invest and Earn!')
+        # return redirect(url_for('auth.login'))
     else:
         flash('The confirmation link is invalid or has expired.')
     return redirect(url_for('main.index'))
@@ -132,13 +135,13 @@ def confirm(token):
 @auth_blueprint.route('/confirm')
 @login_required
 def resend_confirmation():
-    # token = current_user.generate_confirmation_token()
+    token = current_user.generate_confirmation_token()
     user = current_user
     send_confirmation_email(user)
     # send_email(current_user.email, 'Confirm Your Account',
     #            'auth/email/confirm', user=current_user, token=token)
     flash('A new confirmation email has been sent to you by email.')
-    return redirect(url_for('main.index'))
+    return redirect(url_for('main.index'), token=token)
 
 
 @auth_blueprint.route('/reset_password_request', methods=['GET', 'POST'])
