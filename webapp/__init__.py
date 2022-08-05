@@ -1,5 +1,5 @@
 import os
-from flask import Flask, flash, redirect, url_for, request
+from flask import Flask, redirect, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_mail import Mail
@@ -8,8 +8,9 @@ from flask_admin import Admin, expose, BaseView, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.contrib import sqla
 from flask_bootstrap import Bootstrap
-from flask_login import current_user, login_required
-#from config import config
+from flask_login import current_user
+from config import Config
+from flask_celery import Celery
 
 from webapp.decorators import has_role
 
@@ -19,6 +20,7 @@ migrate = Migrate()
 mail = Mail()
 fa = FontAwesome()
 bootstrap = Bootstrap()
+celery = Celery()
 
 
 # babel = Babel()
@@ -45,7 +47,7 @@ class MyAdminIndexView(AdminIndexView):
         return super(MyAdminIndexView, self).index()
 
 
-def create_app():
+def create_app(config_class=Config):
     """
     An flask application factory, as explained here:
     http://flask.pocoo.org/docs/patterns/appfactories/
@@ -55,8 +57,8 @@ def create_app():
                      e.g. project.config.ProdConfig
     """
     app = Flask(__name__)
-    CONFIG_TYPE = os.getenv('CONFIG_TYPE', default='config.ProdConfig')
-    app.config.from_object(ProdConfig)
+    #CONFIG_TYPE = os.getenv('CONFIG_TYPE', default='config.ProdConfig')
+    app.config.from_object(config_class)
 
     # UPLOAD_FOLDER = 'static/img/'
     # app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -66,6 +68,19 @@ def create_app():
     mail.init_app(app)
     fa.init_app(app)
     bootstrap.init_app(app)
+    celery.init_app(app)
+
+    TaskBase = celery.Task
+
+    class ContextTask(TaskBase):
+        abstract = True
+
+        def __call__(self, *args, **kwargs):
+            with app.app_context():
+                return TaskBase.__call__(self, *args, **kwargs)
+
+    celery.Task = ContextTask
+
     # babel.init_app(app)
     app.static_folder = 'static'
 
